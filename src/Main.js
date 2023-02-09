@@ -1,5 +1,6 @@
-import React from 'react'
-import web3 from './infura';
+import React, { useState } from 'react'
+import Web3 from 'web3';
+
 
 async function checkMetaMask() {
   if (window.ethereum) {
@@ -20,9 +21,22 @@ async function checkMetaMask() {
   }
 }
 
-
 export default function Main() {
+  const [isConnected, setIsConnected] = useState(false);
+
+  async function handleConnectWalletClick() {
+    const isMetaMaskEnabled = await checkMetaMask();
+    setIsConnected(isMetaMaskEnabled);
+  }
+
   return (
-    <div>Main</div>
-  )
+    <div>
+      {isConnected ? (
+        <p>Wallet Connected</p>
+      ) : (
+        <button onClick={handleConnectWalletClick}>Connect Wallet</button>
+      )}
+    </div>
+  );
 }
+
