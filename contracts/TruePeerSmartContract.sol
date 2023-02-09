@@ -1,0 +1,1 @@
+//create a sample contract
