@@ -5,10 +5,9 @@ contract TruePeer {
     uint256 public paperPrice;
     address payable public author;
     address payable[] public reviewers;
-
-    constructor() public {
-        paperPrice = 20000000000000000000; // 20 MATIC
-        author = address(msg.sender);
+    constructor() {
+        paperPrice = 20000000000000000000; // 20 MATIC 
+        author = payable(msg.sender);
         reviewers = new address payable[](0);
     }
 
@@ -29,7 +28,7 @@ contract TruePeer {
     }
 
     function addReviewer(address payable _reviewer) public {
-        require(address(msg.sender) == author, "Only the author can add reviewers");
+        require(msg.sender == author, "Only the author can add reviewers");
         reviewers.push(_reviewer);
     }
 }
