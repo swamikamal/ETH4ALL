@@ -1,5 +1,5 @@
-import contract from 'truffle-contract';
-import MyContract from './contracts/MyContract.json';
+import contract from "truffle-contract";
+import MyContract from "./contracts/MyContract.json";
 
 const myContract = contract(MyContract);
 myContract.setProvider(web3.currentProvider);
