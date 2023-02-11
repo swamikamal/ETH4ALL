@@ -3,7 +3,8 @@ pragma solidity ^0.8.0;
 
 contract ArticleReview {
     uint public articleCount = 0;
-    
+
+
     struct Article {
         address owner;
         string ipfsHash;
@@ -14,7 +15,7 @@ contract ArticleReview {
     mapping (uint => Article) private articles;
 
     event DeployArticleToPool(string ipfsHash, uint version);
-    
+
     function addArticle( string memory _ipfsHash, uint _version) public {
         require(bytes(_ipfsHash).length > 0, "IPFS hash cannot be empty");
 
@@ -50,6 +51,26 @@ contract ArticleReview {
     }
 
     return (myIpfsHashes, myVersions, myIsReviewed, myArticleCount);
-}
 
-}
+
+    } 
+
+    //to list all articles
+    function getAllArticles() public view returns (string[] memory, uint[] memory, bool[] memory, uint) {
+    if (articleCount == 0) {
+        return (new string[](0), new uint[](0), new bool[](0), uint (0));
+    }
+
+    string[] memory allIpfsHashes = new string[](articleCount);
+    uint[] memory allVersions = new uint[](articleCount);
+    bool[] memory allIsReviewed = new bool[](articleCount);
+
+    for (uint i = 1; i <= articleCount; i++) {
+        allIpfsHashes[i-1] = articles[i].ipfsHash;
+        allVersions[i-1] = articles[i].version;
+        allIsReviewed[i-1] = articles[i].isReviewed;
+    }
+
+    return (allIpfsHashes, allVersions, allIsReviewed, articleCount);
+    }
+} 
