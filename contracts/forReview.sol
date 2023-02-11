@@ -55,7 +55,7 @@ contract ArticleReview {
 
     } 
 
-    //to list all articles
+    //to list all articles helps to display all the articles available for review
     function getAllArticles() public view returns (string[] memory, uint[] memory, bool[] memory, uint) {
     if (articleCount == 0) {
         return (new string[](0), new uint[](0), new bool[](0), uint (0));
