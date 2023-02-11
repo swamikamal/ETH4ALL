@@ -73,4 +73,61 @@ contract ArticleReview {
 
     return (allIpfsHashes, allVersions, allIsReviewed, articleCount);
     }
+
+    //List of all articles that are ready for sale
+    function getReviewedArticles() public view returns (string[] memory, uint[] memory, uint) {
+        uint reviewedArticleCount = 0;
+        for (uint i = 1; i <= articleCount; i++) {
+            if (articles[i].isReviewed) {
+                reviewedArticleCount++;
+            }
+        }
+
+        if (reviewedArticleCount == 0) {
+            return (new string[](0), new uint[](0), uint(0));
+        }
+
+        string[] memory reviewedIpfsHashes = new string[](reviewedArticleCount);
+        uint[] memory reviewedVersions = new uint[](reviewedArticleCount);
+
+        uint j = 0;
+        for (uint i = 1; i <= articleCount; i++) {
+            if (articles[i].isReviewed) {
+                reviewedIpfsHashes[j] = articles[i].ipfsHash;
+                reviewedVersions[j] = articles[i].version;
+                j++;
+            }
+        }
+
+        return (reviewedIpfsHashes, reviewedVersions, reviewedArticleCount);
+    }
+
+    //List of all articles that are to be reviewed
+    function getUnreviewedArticles() public view returns (string[] memory, uint[] memory, uint) {
+        uint unreviewedArticleCount = 0;
+        for (uint i = 1; i <= articleCount; i++) {
+            if (!articles[i].isReviewed) {
+                unreviewedArticleCount++;
+            }
+        }
+
+        if (unreviewedArticleCount == 0) {
+            return (new string[](0), new uint[](0), uint(0));
+        }
+
+        string[] memory unreviewedIpfsHashes = new string[](unreviewedArticleCount);
+        uint[] memory unreviewedVersions = new uint[](unreviewedArticleCount);
+
+        uint j = 0;
+        for (uint i = 1; i <= articleCount; i++) {
+            if (!articles[i].isReviewed) {
+                unreviewedIpfsHashes[j] = articles[i].ipfsHash;
+                unreviewedVersions[j] = articles[i].version;
+                j++;
+            }
+        }
+
+        return (unreviewedIpfsHashes, unreviewedVersions, unreviewedArticleCount);
+    }
+
 } 
