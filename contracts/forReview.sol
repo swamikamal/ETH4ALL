@@ -171,7 +171,7 @@ contract ArticleReview {
 
     //function to purchase an article (based on IPFS hash)(and only if isReviewed=True) and split the payment between the author who gets 80% of payment, the reviewers who get 15% of payment further split equally based on the number of reviewers and the platform which gets 5% of payment into a specific address on metamask
     
-    address payable platform = 0x354a044F8340EdC34FcB93C79a7756130DBB4F5b;
+    address payable platform = 0x0000000000000000000000000000000000000000;
     function purchaseArticle(string memory _ipfsHash, uint _version) public payable {
         require(bytes(_ipfsHash).length > 0, "IPFS hash cannot be empty");
         require(msg.value > 0, "Value must be greater than 0");
