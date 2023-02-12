@@ -145,6 +145,9 @@ contract ArticleReview {
                 articles[i].isReviewed = _isReviewed;
             }
         }
+        // Store the address of the account that called this function in an array
+        address[] memory reviewers = new address[](articleCount + 1);
+        reviewers[articleCount] = msg.sender;
     }
 
     //for authors to accept reviewer's updated article, make changes and create a new version that is linked to the original article on IPFS
