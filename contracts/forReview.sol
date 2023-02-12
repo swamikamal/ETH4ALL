@@ -151,7 +151,7 @@ contract ArticleReview {
     function acceptReview(string memory _ipfsHash, uint _version, string memory _newIpfsHash, uint _newVersion) public {
         require(bytes(_ipfsHash).length > 0, "IPFS hash cannot be empty");
         require(bytes(_newIpfsHash).length > 0, "IPFS hash cannot be empty");
-
+        // if IPFS hash is not empty. Loops through articles and checks if the IPFS hash and version number match given arugments
         for (uint i = 1; i <= articleCount; i++) {
             if (keccak256(abi.encodePacked(articles[i].ipfsHash)) == keccak256(abi.encodePacked(_ipfsHash)) && articles[i].version == _version) {
                 articles[i].isReviewed = false;
@@ -161,10 +161,10 @@ contract ArticleReview {
         }
     }
 
-    //function to check if the article is reviewed or not
+    //function to check if an article is reviewed or not
     function isReviewed(string memory _ipfsHash, uint _version) public view returns (bool) {
         require(bytes(_ipfsHash).length > 0, "IPFS hash cannot be empty");
-
+        // compares given IPFS hash and version number with the IPFS hash and version number of this particular articles
         for (uint i = 1; i <= articleCount; i++) {
             if (keccak256(abi.encodePacked(articles[i].ipfsHash)) == keccak256(abi.encodePacked(_ipfsHash)) && articles[i].version == _version) {
                 return articles[i].isReviewed;
@@ -175,16 +175,17 @@ contract ArticleReview {
     //function to purchase an article (based on IPFS hash)(and only if isReviewed=True) and split the payment between the author who gets 80% of payment, the reviewers who get 15% of payment further split equally based on the number of reviewers and the platform which gets 5% of payment into a specific address on metamask
     
     address payable platform = payable(0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2);
+    
     function purchaseArticle(string memory _ipfsHash, uint _version) public payable {
         require(bytes(_ipfsHash).length > 0, "IPFS hash cannot be empty");
         require(msg.value > 0, "Value must be greater than 0");
-
+        // if IPFS hash is not empty. Loops through articles and checks if the IPFS hash and version number match given arugments
         for (uint i = 1; i <= articleCount; i++) {
             if (keccak256(abi.encodePacked(articles[i].ipfsHash)) == keccak256(abi.encodePacked(_ipfsHash)) && articles[i].version == _version) {
                 address payable author = payable(address(uint160(articles[i].owner)));
                 uint authorAmount = (msg.value * 80) / 100;
                 author.transfer(authorAmount);
-
+                // 80% to author
                 uint reviewerAmount = (msg.value * 15) / 100;
                 uint reviewerCount = 0;
                 for (uint j = 1; j <= articleCount; j++) {
@@ -192,7 +193,7 @@ contract ArticleReview {
                         reviewerCount++;
                     }
                 }
-
+                // 15% to reviewers, and below loop splits the 15% equally among the reviewers
                 uint reviewerShare = reviewerAmount / reviewerCount;
                 for (uint j = 1; j <= articleCount; j++) {
                     if (keccak256(abi.encodePacked(articles[j].ipfsHash)) == keccak256(abi.encodePacked(_ipfsHash)) && articles[j].version == _version && articles[j].isReviewed) {
@@ -200,7 +201,7 @@ contract ArticleReview {
                         reviewer.transfer(reviewerShare);
                     }
                 }
-
+                // 5% to platform (in this case, the platform is the address of the development fund)
                 uint platformAmount = (msg.value * 5) / 100;
                 platform.transfer(platformAmount);
                 
