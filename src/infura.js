@@ -32,7 +32,7 @@ function InfuraIPFSUpload(prop) {
   }
   return (
     <div className="InfuraIPFSUpload">
-      <h1>IPFS Example</h1>
+      <h1></h1>
       {prop.walletAddress}
       <input
         type="file"
