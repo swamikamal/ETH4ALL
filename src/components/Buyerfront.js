@@ -1,11 +1,13 @@
 import React from 'react'
-import DataGrid from './gridViewOfSellers'
+
+import LabTabs from './TabBUYSellReview'
 
 
 function Buyerfront() {
   return (
     <div>
-        <DataGrid/>
+        
+        <LabTabs/>
     </div>
   )
 }
