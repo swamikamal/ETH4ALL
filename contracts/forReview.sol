@@ -26,55 +26,56 @@ contract ArticleReview {
         articles[articleCount] = Article(msg.sender, _ipfsHash, _version, false);
 
     }
+
     function getMyArticles() public view returns (string[] memory, uint[] memory, bool[] memory, uint) {
-    uint myArticleCount = 0;
-    for (uint i = 1; i <= articleCount; i++) {
-        if (articles[i].owner == msg.sender) {
-            myArticleCount++;
+        uint myArticleCount = 0;
+        for (uint i = 1; i <= articleCount; i++) {
+            if (articles[i].owner == msg.sender) {
+                myArticleCount++;
+            }
+            
         }
-        
-    }
 
-    if (myArticleCount == 0) {
-        return (new string[](0), new uint[](0), new bool[](0), uint (0));
-    }
-
-    string[] memory myIpfsHashes = new string[](myArticleCount);
-    uint[] memory myVersions = new uint[](myArticleCount);
-    bool[] memory myIsReviewed = new bool[](myArticleCount);
-
-    uint j = 0;
-    for (uint i = 1; i <= articleCount; i++) {
-        if (articles[i].owner == msg.sender) {
-            myIpfsHashes[j] = articles[i].ipfsHash;
-            myVersions[j] = articles[i].version;
-            myIsReviewed[j] = articles[i].isReviewed;
-            j++;
+        if (myArticleCount == 0) {
+            return (new string[](0), new uint[](0), new bool[](0), uint (0));
         }
-    }
 
-    return (myIpfsHashes, myVersions, myIsReviewed, myArticleCount);
+        string[] memory myIpfsHashes = new string[](myArticleCount);
+        uint[] memory myVersions = new uint[](myArticleCount);
+        bool[] memory myIsReviewed = new bool[](myArticleCount);
+
+        uint j = 0;
+        for (uint i = 1; i <= articleCount; i++) {
+            if (articles[i].owner == msg.sender) {
+                myIpfsHashes[j] = articles[i].ipfsHash;
+                myVersions[j] = articles[i].version;
+                myIsReviewed[j] = articles[i].isReviewed;
+                j++;
+            }
+        }
+
+        return (myIpfsHashes, myVersions, myIsReviewed, myArticleCount);
 
 
     } 
 
-    //to list all articles helps to display all the articles available for review
+    //to list all articles deployed so far. 
     function getAllArticles() public view returns (string[] memory, uint[] memory, bool[] memory, uint) {
-    if (articleCount == 0) {
-        return (new string[](0), new uint[](0), new bool[](0), uint (0));
-    }
+        if (articleCount == 0) {
+            return (new string[](0), new uint[](0), new bool[](0), uint (0));
+        }
 
-    string[] memory allIpfsHashes = new string[](articleCount);
-    uint[] memory allVersions = new uint[](articleCount);
-    bool[] memory allIsReviewed = new bool[](articleCount);
+        string[] memory allIpfsHashes = new string[](articleCount);
+        uint[] memory allVersions = new uint[](articleCount);
+        bool[] memory allIsReviewed = new bool[](articleCount);
 
-    for (uint i = 1; i <= articleCount; i++) {
-        allIpfsHashes[i-1] = articles[i].ipfsHash;
-        allVersions[i-1] = articles[i].version;
-        allIsReviewed[i-1] = articles[i].isReviewed;
-    }
+        for (uint i = 1; i <= articleCount; i++) {
+            allIpfsHashes[i-1] = articles[i].ipfsHash;
+            allVersions[i-1] = articles[i].version;
+            allIsReviewed[i-1] = articles[i].isReviewed;
+        }
 
-    return (allIpfsHashes, allVersions, allIsReviewed, articleCount);
+        return (allIpfsHashes, allVersions, allIsReviewed, articleCount);
     }
 
     //List of all articles that are ready for sale
