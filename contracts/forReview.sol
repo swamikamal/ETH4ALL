@@ -171,14 +171,14 @@ contract ArticleReview {
 
     //function to purchase an article (based on IPFS hash)(and only if isReviewed=True) and split the payment between the author who gets 80% of payment, the reviewers who get 15% of payment further split equally based on the number of reviewers and the platform which gets 5% of payment into a specific address on metamask
     
-    address payable platform = 0x0000000000000000000000000000000000000000;
+    address payable platform = payable(0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2);
     function purchaseArticle(string memory _ipfsHash, uint _version) public payable {
         require(bytes(_ipfsHash).length > 0, "IPFS hash cannot be empty");
         require(msg.value > 0, "Value must be greater than 0");
 
         for (uint i = 1; i <= articleCount; i++) {
             if (keccak256(abi.encodePacked(articles[i].ipfsHash)) == keccak256(abi.encodePacked(_ipfsHash)) && articles[i].version == _version) {
-                address payable author = address(uint160(articles[i].owner));
+                address payable author = payable(address(uint160(articles[i].owner)));
                 uint authorAmount = (msg.value * 80) / 100;
                 author.transfer(authorAmount);
 
@@ -193,7 +193,7 @@ contract ArticleReview {
                 uint reviewerShare = reviewerAmount / reviewerCount;
                 for (uint j = 1; j <= articleCount; j++) {
                     if (keccak256(abi.encodePacked(articles[j].ipfsHash)) == keccak256(abi.encodePacked(_ipfsHash)) && articles[j].version == _version && articles[j].isReviewed) {
-                        address payable reviewer = address(uint160(articles[j].owner));
+                        address payable reviewer = payable(address(uint160(articles[j].owner)));
                         reviewer.transfer(reviewerShare);
                     }
                 }
