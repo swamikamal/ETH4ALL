@@ -26,55 +26,57 @@ contract ArticleReview {
         articles[articleCount] = Article(msg.sender, _ipfsHash, _version, false);
 
     }
+
     function getMyArticles() public view returns (string[] memory, uint[] memory, bool[] memory, uint) {
-    uint myArticleCount = 0;
-    for (uint i = 1; i <= articleCount; i++) {
-        if (articles[i].owner == msg.sender) {
-            myArticleCount++;
+        uint myArticleCount = 0;
+        for (uint i = 1; i <= articleCount; i++) {
+            if (articles[i].owner == msg.sender) {
+                myArticleCount++;
+            }
+            
         }
-        
-    }
 
-    if (myArticleCount == 0) {
-        return (new string[](0), new uint[](0), new bool[](0), uint (0));
-    }
-
-    string[] memory myIpfsHashes = new string[](myArticleCount);
-    uint[] memory myVersions = new uint[](myArticleCount);
-    bool[] memory myIsReviewed = new bool[](myArticleCount);
-
-    uint j = 0;
-    for (uint i = 1; i <= articleCount; i++) {
-        if (articles[i].owner == msg.sender) {
-            myIpfsHashes[j] = articles[i].ipfsHash;
-            myVersions[j] = articles[i].version;
-            myIsReviewed[j] = articles[i].isReviewed;
-            j++;
+        if (myArticleCount == 0) {
+            return (new string[](0), new uint[](0), new bool[](0), uint (0));
         }
-    }
 
-    return (myIpfsHashes, myVersions, myIsReviewed, myArticleCount);
+        string[] memory myIpfsHashes = new string[](myArticleCount);
+        uint[] memory myVersions = new uint[](myArticleCount);
+        bool[] memory myIsReviewed = new bool[](myArticleCount);
+
+        uint j = 0;
+        for (uint i = 1; i <= articleCount; i++) {
+            if (articles[i].owner == msg.sender) {
+                myIpfsHashes[j] = articles[i].ipfsHash;
+                myVersions[j] = articles[i].version;
+                myIsReviewed[j] = articles[i].isReviewed;
+                j++;
+            }
+        }
+
+        return (myIpfsHashes, myVersions, myIsReviewed, myArticleCount);
 
 
     } 
 
-    //to list all articles helps to display all the articles available for review
+    //to list all articles deployed so far. 
     function getAllArticles() public view returns (string[] memory, uint[] memory, bool[] memory, uint) {
-    if (articleCount == 0) {
-        return (new string[](0), new uint[](0), new bool[](0), uint (0));
-    }
+        if (articleCount == 0) {
+            return (new string[](0), new uint[](0), new bool[](0), uint (0));
+        }
+        // to check if it's empty or not
+        // creating arrays to store the values
+        string[] memory allIpfsHashes = new string[](articleCount);
+        uint[] memory allVersions = new uint[](articleCount);
+        bool[] memory allIsReviewed = new bool[](articleCount);
+        // iterate through the articles and store the values in above arrays
+        for (uint i = 1; i <= articleCount; i++) {
+            allIpfsHashes[i-1] = articles[i].ipfsHash;
+            allVersions[i-1] = articles[i].version;
+            allIsReviewed[i-1] = articles[i].isReviewed;
+        }
 
-    string[] memory allIpfsHashes = new string[](articleCount);
-    uint[] memory allVersions = new uint[](articleCount);
-    bool[] memory allIsReviewed = new bool[](articleCount);
-
-    for (uint i = 1; i <= articleCount; i++) {
-        allIpfsHashes[i-1] = articles[i].ipfsHash;
-        allVersions[i-1] = articles[i].version;
-        allIsReviewed[i-1] = articles[i].isReviewed;
-    }
-
-    return (allIpfsHashes, allVersions, allIsReviewed, articleCount);
+        return (allIpfsHashes, allVersions, allIsReviewed, articleCount);
     }
 
     //List of all articles that are ready for sale
@@ -84,15 +86,15 @@ contract ArticleReview {
             if (articles[i].isReviewed) {
                 reviewedArticleCount++;
             }
-        }
+        } // to iterate through all the articles and check if they are reviewed or not
 
         if (reviewedArticleCount == 0) {
             return (new string[](0), new uint[](0), uint(0));
-        }
+        }   // if there are no articles reviewed
 
         string[] memory reviewedIpfsHashes = new string[](reviewedArticleCount);
         uint[] memory reviewedVersions = new uint[](reviewedArticleCount);
-
+        // to store the IPFS hashes and version numbers of all the reviewed articles
         uint j = 0;
         for (uint i = 1; i <= articleCount; i++) {
             if (articles[i].isReviewed) {
@@ -105,9 +107,10 @@ contract ArticleReview {
         return (reviewedIpfsHashes, reviewedVersions, reviewedArticleCount);
     }
 
-    //List of all articles that are to be reviewed
+    //List of all articles that are meant to be reviewed
     function getUnreviewedArticles() public view returns (string[] memory, uint[] memory, uint) {
         uint unreviewedArticleCount = 0;
+        // first count number of unreviewed articles
         for (uint i = 1; i <= articleCount; i++) {
             if (!articles[i].isReviewed) {
                 unreviewedArticleCount++;
@@ -120,7 +123,7 @@ contract ArticleReview {
 
         string[] memory unreviewedIpfsHashes = new string[](unreviewedArticleCount);
         uint[] memory unreviewedVersions = new uint[](unreviewedArticleCount);
-
+        // to store the IPFS hashes and versions of only unreviewed articles
         uint j = 0;
         for (uint i = 1; i <= articleCount; i++) {
             if (!articles[i].isReviewed) {
@@ -136,7 +139,7 @@ contract ArticleReview {
     //For reviewers to submit their feedback if author accepts them as reviewer
     function submitReview(string memory _ipfsHash, uint _version, bool _isReviewed) public {
         require(bytes(_ipfsHash).length > 0, "IPFS hash cannot be empty");
-
+        // if IPFS hash is not empty. Loops through articles and checks if the IPFS hash and version number match given arugments
         for (uint i = 1; i <= articleCount; i++) {
             if (keccak256(abi.encodePacked(articles[i].ipfsHash)) == keccak256(abi.encodePacked(_ipfsHash)) && articles[i].version == _version) {
                 articles[i].isReviewed = _isReviewed;
