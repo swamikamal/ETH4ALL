@@ -17,6 +17,7 @@ contract ArticleReview {
 
     mapping (uint => Article) private articles;
 
+    // To add an article to the article pool on the blockchain, each with an IPFS hash and a version number
     event DeployArticleToPool(string ipfsHash, uint version);
 
     function addArticle( string memory _ipfsHash, uint _version) public {
@@ -27,6 +28,7 @@ contract ArticleReview {
         emit DeployArticleToPool(_ipfsHash, _version);
     }
 
+    // To get a list of all articles deployed by the author
     event viewMyArticles(string[] ipfsHashes, uint[] versions, bool[] isReviewed, uint articleCount);
 
     function getMyArticles() public returns (string[] memory, uint[] memory, bool[] memory, uint) {
@@ -86,7 +88,9 @@ contract ArticleReview {
     }
 
     //List of all articles that are ready for sale
-    function getReviewedArticles() public view returns (string[] memory, uint[] memory, uint) {
+    event ViewReviewedArticles(string[] ipfsHashes, uint[] versions, uint count);
+
+    function getReviewedArticles() public returns (string[] memory, uint[] memory, uint) {
         uint reviewedArticleCount = 0;
         for (uint i = 1; i <= articleCount; i++) {
             if (articles[i].isReviewed) {
@@ -110,11 +114,12 @@ contract ArticleReview {
             }
         }
 
+        emit ViewReviewedArticles(reviewedIpfsHashes, reviewedVersions, reviewedArticleCount);
         return (reviewedIpfsHashes, reviewedVersions, reviewedArticleCount);
     }
 
     //List of all articles that are meant to be reviewed
-    event OnlyReviewedArticles(string[] ipfsHashes, uint[] versions, uint count);
+    event OnlyUnReviewedArticles(string[] ipfsHashes, uint[] versions, uint count);
 
     function getUnreviewedArticles() public returns (string[] memory, uint[] memory, uint) {
         uint unreviewedArticleCount = 0;
@@ -141,7 +146,7 @@ contract ArticleReview {
             }
         }
 
-        emit OnlyReviewedArticles(unreviewedIpfsHashes, unreviewedVersions, unreviewedArticleCount);
+        emit OnlyUnReviewedArticles(unreviewedIpfsHashes, unreviewedVersions, unreviewedArticleCount);
         return (unreviewedIpfsHashes, unreviewedVersions, unreviewedArticleCount);
     }
 
