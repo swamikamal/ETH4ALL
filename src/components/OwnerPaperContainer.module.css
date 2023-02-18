@@ -1,0 +1,83 @@
+.descriptionByOwner,
+.nameOfPaper {
+  align-self: stretch;
+  position: relative;
+  text-transform: capitalize;
+}
+.nameOfPaper {
+  line-height: 120%;
+  font-weight: 600;
+}
+.descriptionByOwner {
+  font-size: var(--body-text-work-sans-size);
+  line-height: 160%;
+}
+.headlineSubhead {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-xs);
+}
+.enterYourEmail {
+  flex: 1;
+  position: relative;
+  line-height: 140%;
+}
+.envelopesimpleIcon {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  display: none;
+}
+.button1 {
+  position: relative;
+  line-height: 140%;
+  font-weight: 600;
+}
+.button {
+  border-radius: var(--br-md);
+  background-color: var(--call-to-action1);
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  padding: 0 var(--padding-md);
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--gap-sm);
+  cursor: pointer;
+  text-align: center;
+  color: var(--text1);
+}
+.headlineSubheadParent,
+.subscribeForm {
+  display: flex;
+  justify-content: flex-start;
+}
+.subscribeForm {
+  align-self: stretch;
+  border-radius: var(--br-md);
+  background-color: var(--text1);
+  height: 60px;
+  flex-shrink: 0;
+  flex-direction: row;
+  padding: var(--padding-xs) 0 var(--padding-xs) var(--padding-sm);
+  box-sizing: border-box;
+  align-items: center;
+  gap: var(--gap-sm);
+  font-size: var(--basebody-work-sans1-size);
+  color: var(--background1);
+}
+.headlineSubheadParent {
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gap-md);
+  text-align: left;
+  font-size: var(--h3-work-sans-size);
+  color: var(--text1);
+  font-family: var(--basebody-work-sans1);
+}

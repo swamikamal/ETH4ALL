@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600&display=swap");
+
+body {
+  margin: 0;
+  line-height: normal;
+}
+:root {
+  /* fonts */
+  --basebody-work-sans1: "Work Sans";
+
+  /* font sizes */
+  --basebody-work-sans1-size: 16px;
+  --body-text-work-sans-size: 22px;
+  --h3-work-sans-size: 38px;
+
+  /* Colors */
+  --color-darkslategray: #3b3b3b;
+  --text1: #fff;
+  --color-silver: #c4c4c4;
+  --call-to-action1: #a259ff;
+  --background1: #2b2b2b;
+
+  /* Gaps */
+  --gap-xs: 10px;
+  --gap-sm: 12px;
+  --gap-md: 40px;
+  --gap-lg: 80px;
+
+  /* Paddings */
+  --padding-xs: 16px;
+  --padding-sm: 20px;
+  --padding-md: 50px;
+  --padding-lg: 60px;
+
+  /* border radiuses */
+  --br-md: 20px;
+}

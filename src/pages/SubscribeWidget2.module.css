@@ -1,0 +1,35 @@
+.photo {
+  position: relative;
+  border-radius: var(--br-md);
+  background-color: var(--color-silver);
+  width: 118px;
+  height: 75px;
+  flex-shrink: 0;
+  transform: rotate(180deg);
+  transform-origin: 0 0;
+}
+.subscribeWidget,
+.union {
+  position: relative;
+  box-sizing: border-box;
+}
+.union {
+  border-radius: 5px;
+  border: 1px dashed #9747ff;
+  width: 667.65px;
+  height: 214.64px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.subscribeWidget {
+  border-radius: var(--br-md);
+  background-color: var(--color-darkslategray);
+  width: 100%;
+  height: 111px;
+  display: flex;
+  flex-direction: row;
+  padding: var(--padding-lg);
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-lg);
+}
