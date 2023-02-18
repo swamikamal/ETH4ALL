@@ -1,0 +1,52 @@
+.descriptionByOwner,
+.nameOfPaper {
+  align-self: stretch;
+  position: relative;
+  text-transform: capitalize;
+}
+.nameOfPaper {
+  line-height: 120%;
+  font-weight: 600;
+}
+.descriptionByOwner {
+  font-size: var(--body-text-work-sans-size);
+  line-height: 160%;
+}
+.headlineSubhead,
+.headlineSubheadWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.headlineSubhead {
+  align-self: stretch;
+  gap: var(--gap-xs);
+}
+.headlineSubheadWrapper {
+  position: absolute;
+  height: 117.69%;
+  width: 136.38%;
+  top: -10.73%;
+  right: -36%;
+  bottom: -6.96%;
+  left: -0.38%;
+}
+.property1default,
+.union {
+  width: 627.65px;
+  height: 77.32px;
+}
+.union {
+  position: relative;
+  background-color: var(--text1);
+}
+.property1default {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  text-align: left;
+  font-size: var(--h3-work-sans-size);
+  color: var(--text1);
+  font-family: var(--basebody-work-sans1);
+}

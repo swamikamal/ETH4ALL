@@ -1,0 +1,21 @@
+.photo,
+.subscribeWidget {
+  position: relative;
+  border-radius: var(--br-md);
+}
+.photo {
+  flex: 1;
+  background-color: var(--color-silver);
+  height: 310px;
+}
+.subscribeWidget {
+  background-color: var(--color-darkslategray);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: var(--padding-lg);
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-lg);
+}
