@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@arcana/auth": "^1.0.1",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.11.0",
@@ -16,6 +17,7 @@
     "cdn": "^1.1.1",
     "console-browserify": "^1.2.0",
     "ipfs-http-client": "^60.0.0",
+    "nft.storage": "^7.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
