@@ -1,5 +1,5 @@
 
-  # Eth4All Hackathon - ScholarSwapRealm
+  # Eth4All Hackathon - ScholarSwapRealm - Please find attached demo video.
 
   In this project, we built a Decentralized Peer Review system to publish, review and purchase academic articles.
   
